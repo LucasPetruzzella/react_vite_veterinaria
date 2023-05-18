@@ -3,9 +3,13 @@ import Header from "./components/Header";
 import ListadoPacientes from "./components/ListadoPacientes";
 import { useState, useEffect } from "react";
 function App() {
-  const [pacientes, setPacientes] = useState(JSON.parse(localStorage.getItem('pacientes') ?? []));
+  const [pacientes, setPacientes] = useState([]);
   const [paciente, setPaciente] = useState({});
 
+  useEffect(() => {
+    const pacientesLocal = JSON.parse(localStorage.getItem('pacientes'));
+    pacientesLocal?.length > 0 && setPacientes(pacientesLocal);
+  }, []);
 
   useEffect(()=> {
     localStorage.setItem('pacientes',JSON.stringify(pacientes))
